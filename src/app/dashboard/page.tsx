@@ -80,66 +80,73 @@ export default function App({ params }: PromptProps): JSX.Element {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-200" style={{ fontFamily: 'Arial, sans-serif' }}>
+    <div
+      className="h-screen flex flex-col bg-gray-200"
+      style={{ fontFamily: "Arial, sans-serif" }}
+    >
       {/* Header */}
       <header className="flex items-center justify-between p-2 bg-gray-300 border-b border-gray-400">
         <a className="text-black font-bold text-md">Predictive Prompt</a>
       </header>
-  
-      {/* Model Selector */}
-      <select
-        name="model-selector"
-        value={selectedModel}
-        onChange={(e) => setSelectedModel(e.target.value)}
-        className="border border-gray-400 bg-white px-2 py-1 text-sm text-black"
-        style={{ margin: '10px' }}
-      >
-        {models.map((model) => (
-          <option key={model.value} value={model.value}>
-            {model.label}
-          </option>
-        ))}
-      </select>
-  
-      {/* Main Content Area */}
-      <main className="flex-grow px-4 py-4 overflow-y-auto bg-white border-t border-gray-400">
-        <div className="mx-auto max-w-3xl bg-gray-100 border border-gray-400 p-4">
-          {/* Response Output */}
-          <div className="bg-gray-100 p-2 border border-gray-400">
-            {!responseChunks.length ? (
-              <div className="flex items-center justify-center h-24">
-                <div className="h-2 bg-gray-200 w-[100px]"></div>
-              </div>
-            ) : (
-              <div className="border-t border-gray-400 pt-4">
-                <h2 className="text-md font-bold text-black">Response:</h2>
-                <Markdown>{responseChunks.join("")}</Markdown>
-              </div>
-            )}
-          </div>
-  
-          {/* Input Form */}
-          <form onSubmit={handleSubmit} className="mt-4 flex items-center space-x-2 border border-gray-400 p-2">
-            <textarea
-              value={content}
-              onChange={(event) => setContent(event.target.value)}
-              placeholder="Type your message here..."
-              className="flex-grow border border-gray-400 p-2 text-sm bg-white text-black resize-none"
-              style={{ height: '40px', fontFamily: 'Arial, sans-serif' }}
-            />
-  
-            <button
-              type="submit"
-              aria-label="Send Message"
-              className="px-3 py-1 bg-gray-200 border border-gray-400 text-black hover:bg-gray-300"
-              style={{ fontFamily: 'Arial, sans-serif' }}
-            >
-              Send
-            </button>
-          </form>
+
+      <div className="flex flex-row">
+        <div className="w-1/4 bg-gray-100 border border-gray-400p-4">
+          <select
+            name="model-selector"
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            className="border border-gray-400 bg-white px-2 py-1 text-sm text-black border-transparent focus:border-gray-600 focus:outline-none focus:ring-0"
+            style={{ margin: "10px" }}
+          >
+            {models.map((model) => (
+              <option key={model.value} value={model.value}>
+                {model.label}
+              </option>
+            ))}
+          </select>
         </div>
-      </main>
+
+        <main className="flex-grow px-4 py-4 overflow-y-auto bg-white border-t border-gray-400">
+          <div className="mx-auto max-w-3xl bg-gray-100 border border-gray-400 p-4">
+            {/* Response Output */}
+            <div className="bg-gray-100 p-2 border border-gray-400">
+              {!responseChunks.length ? (
+                <div className="flex items-center justify-center h-24">
+                  <div className="h-2 bg-gray-200 w-[100px]"></div>
+                </div>
+              ) : (
+                <div className="border-t border-gray-400 pt-4">
+                  <h2 className="text-md font-bold text-black">Response:</h2>
+                  <Markdown>{responseChunks.join("")}</Markdown>
+                </div>
+              )}
+            </div>
+
+            {/* Input Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="mt-4 flex items-center space-x-2 border border-gray-400 p-2"
+            >
+              <textarea
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                placeholder="Type your message here..."
+                className="flex-grow border border-gray-400 p-2 text-sm bg-white text-black resize-none border-transparent focus:border-gray-600 focus:outline-none focus:ring-0"
+                style={{ height: "40px", fontFamily: "Arial, sans-serif" }}
+              />
+
+              <button
+                type="submit"
+                aria-label="Send Message"
+                className="px-3 py-1 bg-gray-200 border border-gray-400 text-black hover:bg-gray-300"
+                style={{ fontFamily: "Arial, sans-serif" }}
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
   );
-  
 }
