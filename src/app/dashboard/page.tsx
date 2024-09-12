@@ -1,45 +1,39 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Markdown from "react-markdown";
-
-const models = [
-  { value: "codegemma:latest", label: "CodeGemma: Latest" },
-  { value: "reflection:latest", label: "Reflection: Latest" },
-  { value: "yi-coder:1.5b", label: "YI-Coder 1.5b" },
-  { value: "yi-coder:latest", label: "YI-Coder: Latest" },
-  { value: "llama3.1:70b", label: "Llama 3.1: 70B" },
-  { value: "dolphin-mistral:latest", label: "Dolphin Mistral: Latest" },
-  { value: "gemma2:9b", label: "Gemma 2: 9B" },
-  { value: "command-r:latest", label: "Command-R: Latest" },
-  { value: "phi3:14b", label: "Phi 3: 14B" },
-  { value: "mistral-nemo:latest", label: "Mistral-Nemo: Latest" },
-  { value: "dolphin-phi:latest", label: "Dolphin Phi: Latest" },
-  { value: "dolphin-llama3:8b", label: "Dolphin Llama 3: 8B" },
-  { value: "llava:34b", label: "LLaVA: 34B" },
-  { value: "gemma2:27b", label: "Gemma 2: 27B" },
-  { value: "dolphin-mixtral:8x7b", label: "Dolphin Mixtral: 8x7B" },
-  { value: "stable-code:3b-code-q4_0", label: "StableCode: 3B Code Q4_0" },
-  { value: "llama3.1:latest", label: "Llama 3.1: Latest" },
-];
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
+import rehypeHighlightCodeLines from "rehype-highlight-code-lines";
+import "highlight.js/styles/obsidian.css";
 
 interface PromptProps {
   params: { [key: string]: string };
 }
 
-const ollamaLocal = "http://localhost:11434/api/chat";
+const ollamaLocalChatEndpoint = "http://localhost:11434/api/chat";
 
 export default function App({ params }: PromptProps): JSX.Element {
   const [content, setContent] = useState("");
   const [responseChunks, setResponseChunks] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState("yi-coder:1.5b"); // Default model
+  const [loading, setLoading] = useState(false);
+
+  const [models, setModels] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:11434/api/tags")
+      .then((response) => response.json())
+      .then((data) => setModels(data.models))
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setResponseChunks([]); // Clear previous responses
+    setLoading(true);
 
     try {
-      const response = await fetch(ollamaLocal, {
+      const response = await fetch(ollamaLocalChatEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,6 +66,7 @@ export default function App({ params }: PromptProps): JSX.Element {
             }
           });
         }
+        setLoading(false);
       }
     } catch (error: any) {
       console.error("Error during request:", error);
@@ -79,6 +74,7 @@ export default function App({ params }: PromptProps): JSX.Element {
     }
   };
 
+  const output = `${responseChunks.join("")}`;
   return (
     <div
       className="h-screen flex flex-col bg-gray-200"
@@ -98,9 +94,9 @@ export default function App({ params }: PromptProps): JSX.Element {
             className="border border-gray-400 bg-white px-2 py-1 text-sm text-black border-transparent focus:border-gray-600 focus:outline-none focus:ring-0"
             style={{ margin: "10px" }}
           >
-            {models.map((model) => (
-              <option key={model.value} value={model.value}>
-                {model.label}
+            {models.map((model: any) => (
+              <option key={model.name} value={model.name}>
+                {model.name}
               </option>
             ))}
           </select>
@@ -109,18 +105,38 @@ export default function App({ params }: PromptProps): JSX.Element {
         <main className="flex-grow px-4 py-4 overflow-y-auto bg-white border-t border-gray-400">
           <div className="mx-auto max-w-3xl bg-gray-100 border border-gray-400 p-4">
             {/* Response Output */}
-            <div className="bg-gray-100 p-2 border border-gray-400">
-              {!responseChunks.length ? (
-                <div className="flex items-center justify-center h-24">
-                  <div className="h-2 bg-gray-200 w-[100px]"></div>
+            {loading && (
+              <div className="bg-gray-100 flex flex-col w-full">
+                <span className="text-orange-400 font-mono text-xl tracking-widest animate-pulse">
+                  LOADING...
+                </span>
+                <div className="w-64 h-6 bg-red-700 border-2 border-red-500 relative overflow-hidden w-full">
+                  <div className="h-full bg-gradient-to-r from-yellow-500 to-red-500 animate-retro-loading"></div>
                 </div>
-              ) : (
-                <div className="border-t border-gray-400 pt-4">
-                  <h2 className="text-md font-bold text-black">Response:</h2>
-                  <Markdown>{responseChunks.join("")}</Markdown>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+            {
+              <div className="bg-gray-100 p-2 border border-gray-400">
+                {!responseChunks.length ? (
+                  <div className="flex items-center justify-center h-24">
+                    <div className="h-2 bg-gray-200 w-[100px]"></div>
+                  </div>
+                ) : (
+                  <div className="border-t border-gray-400 pt-4">
+                    <h2 className="text-md font-bold text-black">Response:</h2>
+                    <Markdown
+                      remarkPlugins={[remarkGfm]}
+                      rehypePlugins={[
+                        rehypeHighlight,
+                        rehypeHighlightCodeLines,
+                      ]}
+                    >
+                      {output}
+                    </Markdown>
+                  </div>
+                )}
+              </div>
+            }
 
             {/* Input Form */}
             <form

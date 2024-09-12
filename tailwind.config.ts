@@ -13,6 +13,17 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        retroLoading: {
+          '0%': { width: '0%' },
+          '50%': { width: '50%' },
+          '100%': { width: '100%' },
+        },
+      },
+      animation: {
+        'retro-loading': 'retroLoading 3s ease-in-out infinite',
+      },
+
     },
   },
   plugins: [],
