@@ -68,9 +68,14 @@ Before starting, ensure that Ollama is installed and running on your local machi
 
 2. **Enter Your Prompt**  
    - Type your prompt into the text input area.
+ 
+     <img width="886" alt="image" src="https://github.com/user-attachments/assets/d4a363a8-f687-498a-9bbd-384bc752bee7">
+
 
 3. **Generate Output**  
    - Press the 'Send' button to submit your prompt. The model will begin processing, and the output will be displayed in markdown format as it is generated.
+
+   <img width="910" alt="image" src="https://github.com/user-attachments/assets/e384ccfd-0ce1-44f3-9531-20b6d20a3ff8">
 
 ## Troubleshooting
 
