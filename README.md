@@ -1,7 +1,3 @@
-Here’s a revised version of the README, with additional clarity and structure for beginners:
-
----
-
 # Predictive Prompt
 
 **Predictive Prompt** is a simple Language Learning Model (LLM) chat window with retro styling. It dynamically populates a dropdown with available models from a local instance of Ollama and uses the streaming API to generate and display results in real-time. The output is rendered in markdown with syntax highlighting support.
