@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Here’s a revised version of the README, with additional clarity and structure for beginners:
+
+---
+
+# Predictive Prompt
+
+**Predictive Prompt** is a simple Language Learning Model (LLM) chat window with retro styling. It dynamically populates a dropdown with available models from a local instance of Ollama and uses the streaming API to generate and display results in real-time. The output is rendered in markdown with syntax highlighting support.
+
+## Features
+
+- **Dynamic Model Selection**: Automatically fetches available models from your local Ollama instance.
+- **Retro Loading Bar**: Displays a nostalgic loading bar while the model processes your request.
+- **Real-time Text Rendering**: Text is rendered in chunks as the model generates the output.
+- **Markdown Support**: The output includes markdown formatting and syntax highlighting for code snippets.
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up **Predictive Prompt**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1. Setting Up Ollama
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Before starting, ensure that Ollama is installed and running on your local machine with the streaming API enabled.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Download Ollama**
+   - Go to [ollama.com](https://ollama.com) and download the version suited for your operating system.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. **Install Ollama**
+   - Follow the step-by-step installation guide for your specific OS:
+     - For Windows, use the [Windows installation guide](https://github.com/ollama/ollama/blob/main/docs/windows.md).
+     - For macOS and Linux, check the [Ollama Download page](https://ollama.com/download) for instructions.
 
-## Learn More
+3. **Start Ollama**
+   - Once installed, start Ollama and ensure the streaming API is running on `http://localhost:11434` (default).
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Installing Project Dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Install Node.js and npm**  
+   - If Node.js and npm are not already installed, download and install them from [nodejs.org](https://nodejs.org). npm is included with Node.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Install Project Dependencies**  
+   - In your terminal, navigate to the project directory where `package.json` is located.
+   - Run the command:  
+     ```bash
+     npm install
+     ```  
+     or  
+     ```bash
+     yarn install
+     ```  
+     to install all necessary dependencies.
 
-## Deploy on Vercel
+### 3. Running the Development Server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Start the Server**  
+   - In your terminal, run:  
+     ```bash
+     npm run dev
+     ```  
+     or  
+     ```bash
+     yarn dev
+     ```  
+     This will start the development server.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. **Open the Chat Window**  
+   - Open your browser and navigate to `http://localhost:3000`.
+
+## Usage
+
+1. **Select a Model**  
+   - Use the dropdown menu to choose a model from your local Ollama instance.
+
+2. **Enter Your Prompt**  
+   - Type your prompt into the text input area.
+
+3. **Generate Output**  
+   - Press the 'Send' button to submit your prompt. The model will begin processing, and the output will be displayed in markdown format as it is generated.
+
+## Troubleshooting
+
+- **Ollama Not Running**: If you receive an error indicating that Ollama is not running, ensure that Ollama is installed correctly and the streaming API is enabled on `http://localhost:11434`.
+- **Model Selection Issues**: If models do not appear in the dropdown, make sure your Ollama instance is running properly. Restart Ollama and refresh the chat window if necessary.
