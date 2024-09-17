@@ -18,61 +18,69 @@ Follow these steps to set up **Predictive Prompt**:
 Before starting, ensure that Ollama is installed and running on your local machine with the streaming API enabled.
 
 1. **Download Ollama**
+
    - Go to [ollama.com](https://ollama.com) and download the version suited for your operating system.
 
 2. **Install Ollama**
+
    - Follow the step-by-step installation guide for your specific OS:
      - For Windows, use the [Windows installation guide](https://github.com/ollama/ollama/blob/main/docs/windows.md).
      - For macOS and Linux, check the [Ollama Download page](https://ollama.com/download) for instructions.
 
 3. **Start Ollama**
    - Once installed, start Ollama and ensure the streaming API is running on `http://localhost:11434` (default).
+   - You can pull a model from the command line using the following format: `ollama pull <model_name>:<version>`. For example: `ollama pull llama3.1:latest`
+   - Visit https://ollama.com/library to explore other Large Language Models.
 
 ### 2. Installing Project Dependencies
 
-1. **Install Node.js and npm**  
+1. **Install Node.js and npm**
+
    - If Node.js and npm are not already installed, download and install them from [nodejs.org](https://nodejs.org). npm is included with Node.js.
 
-2. **Install Project Dependencies**  
+2. **Install Project Dependencies**
    - In your terminal, navigate to the project directory where `package.json` is located.
-   - Run the command:  
+   - Run the command:
      ```bash
      npm install
-     ```  
-     or  
+     ```
+     or
      ```bash
      yarn install
-     ```  
+     ```
      to install all necessary dependencies.
 
 ### 3. Running the Development Server
 
-1. **Start the Server**  
-   - In your terminal, run:  
+1. **Start the Server**
+
+   - In your terminal, run:
      ```bash
      npm run dev
-     ```  
-     or  
+     ```
+     or
      ```bash
      yarn dev
-     ```  
+     ```
      This will start the development server.
 
-2. **Open the Chat Window**  
+2. **Open the Chat Window**
    - Open your browser and navigate to `http://localhost:3000`.
 
 ## Usage
 
-1. **Select a Model**  
+1. **Select a Model**
+
    - Use the dropdown menu to choose a model from your local Ollama instance.
 
-2. **Enter Your Prompt**  
+2. **Enter Your Prompt**
+
    - Type your prompt into the text input area.
- 
+
      <img width="886" alt="image" src="https://github.com/user-attachments/assets/d4a363a8-f687-498a-9bbd-384bc752bee7">
 
+3. **Generate Output**
 
-3. **Generate Output**  
    - Press the 'Send' button to submit your prompt. The model will begin processing, and the output will be displayed in markdown format as it is generated.
 
    <img width="910" alt="image" src="https://github.com/user-attachments/assets/e384ccfd-0ce1-44f3-9531-20b6d20a3ff8">
