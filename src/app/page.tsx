@@ -15,7 +15,8 @@ const ollamaLocalChatEndpoint = "http://localhost:11434/api/chat";
 export default function App({ params }: PromptProps): JSX.Element {
   const [content, setContent] = useState("");
   const [responseChunks, setResponseChunks] = useState<string[]>([]);
-  const [selectedModel, setSelectedModel] = useState("yi-coder:1.5b"); // Default model
+  const defaultModel = "llama3.1:latest";
+  const [selectedModel, setSelectedModel] = useState(defaultModel); // Default model
   const [loading, setLoading] = useState(false);
 
   const [models, setModels] = useState([]);
